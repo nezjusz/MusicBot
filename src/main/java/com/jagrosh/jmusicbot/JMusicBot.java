@@ -31,7 +31,6 @@ import com.jagrosh.jmusicbot.utils.OtherUtil;
 import club.minnced.discord.jdave.interop.JDaveSessionFactory;
 import java.awt.Color;
 import java.util.Arrays;
-import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.audio.AudioModuleConfig;
 import net.dv8tion.jda.api.entities.Activity;
@@ -151,13 +150,6 @@ public class JMusicBot
                         + "If your prefix is not working, make sure that the 'MESSAGE CONTENT INTENT' is Enabled "
                         + "on https://discord.com/developers/applications/" + jda.getSelfUser().getId() + "/bot");
             }
-        }
-        catch (LoginException ex)
-        {
-            prompt.alert(Prompt.Level.ERROR, "JMusicBot", ex + "\nPlease make sure you are "
-                    + "editing the correct config.txt file, and that you have used the "
-                    + "correct token (not the 'secret'!)\nConfig Location: " + config.getConfigLocation());
-            System.exit(1);
         }
         catch(IllegalArgumentException ex)
         {
