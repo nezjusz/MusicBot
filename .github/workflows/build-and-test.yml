@@ -1,14 +1,12 @@
 name: Build and Test
 
-# Compiles (and tests) the bot on every push/PR to master.
+# Compiles (and tests) the bot on every push (any branch) and on every PR.
 # Requires Java 25 (JDA 6 + JDAVE / DAVE voice support).
 on:
   push:
     branches:
-      - master
+      - '**'
   pull_request:
-    branches:
-      - master
 
 jobs:
   build:
