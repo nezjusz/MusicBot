@@ -49,6 +49,21 @@
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
             <version>6.5.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Pin slf4j to 1.7.x so logback-classic 1.2.13 (which provides the
+             StaticLoggerBinder for slf4j 1.7) is used as the binding, instead
+             of JDA's slf4j 2.0.x which leaves SLF4J with only the NOP logger
+             and breaks the logback Logger cast in JMusicBot. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
         </dependency>
         <!-- jda-utilities is archived/unmaintained and not JDA 6 compatible.
              JDA-Chewtils is a drop-in fork keeping the same com.jagrosh.jdautilities package. -->
