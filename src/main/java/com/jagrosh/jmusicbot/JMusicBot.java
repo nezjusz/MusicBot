@@ -120,7 +120,7 @@ public class JMusicBot
         {
             JDA jda = JDABuilder.create(config.getToken(), Arrays.asList(INTENTS))
                     .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
-                    .disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOTE, CacheFlag.ONLINE_STATUS)
+                    .disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.EMOJI, CacheFlag.ONLINE_STATUS)
                     .setActivity(config.isGameNone() ? null : Activity.playing("loading..."))
                     .setStatus(config.getStatus()==OnlineStatus.INVISIBLE
                             ? OnlineStatus.INVISIBLE : OnlineStatus.DO_NOT_DISTURB)

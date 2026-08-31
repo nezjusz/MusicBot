@@ -53,7 +53,7 @@ public class EvalCmd extends OwnerCommand
         se.put("bot", bot);
         se.put("event", event);
         se.put("jda", event.getJDA());
-        if (event.isFromGuild()) {
+        if (event.getGuild() != null) {
             se.put("guild", event.getGuild());
             se.put("channel", event.getChannel());
         }

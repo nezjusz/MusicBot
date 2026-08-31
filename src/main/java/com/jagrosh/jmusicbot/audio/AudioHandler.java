@@ -118,7 +118,7 @@ public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
     
     public boolean isMusicPlaying(JDA jda)
     {
-        return guild(jda).getSelfMember().getVoiceState().inVoiceChannel() && audioPlayer.getPlayingTrack()!=null;
+        return guild(jda).getSelfMember().getVoiceState().inAudioChannel() && audioPlayer.getPlayingTrack()!=null;
     }
     
     public Set<String> getVotes()
@@ -222,7 +222,7 @@ public class AudioHandler extends AudioEventAdapter implements AudioSendHandler
             Guild guild = guild(jda);
             AudioTrack track = audioPlayer.getPlayingTrack();
             MessageCreateBuilder mb = new MessageCreateBuilder();
-            mb.append(FormatUtil.filter(manager.getBot().getConfig().getSuccess()+" **Now Playing in "+guild.getSelfMember().getVoiceState().getChannel().getAsMention()+"...**"));
+            mb.addContent(FormatUtil.filter(manager.getBot().getConfig().getSuccess()+" **Now Playing in "+guild.getSelfMember().getVoiceState().getChannel().getAsMention()+"...**"));
             EmbedBuilder eb = new EmbedBuilder();
             eb.setColor(guild.getSelfMember().getColor());
             RequestMetadata rm = getRequestMetadata();
