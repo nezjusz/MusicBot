@@ -75,7 +75,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.event.inputs.version_number }}
           name: Version ${{ github.event.inputs.version_number }}
-          draft: true
+          draft: false
           prerelease: false
           artifacts: "*.jar"
           body: |
@@ -85,4 +85,4 @@ jobs:
             ### Setup
             https://jmusicbot.com/setup
             https://jmusicbot.com/config
-            # Download: [JMusicBot-${{ github.event.inputs.version_number }}.jar](https://github.com/jagrosh/MusicBot/releases/download/${{ github.event.inputs.version_number }}/JMusicBot-${{ github.event.inputs.version_number }}.jar)
+            # Download: [JMusicBot-${{ github.event.inputs.version_number }}.jar](https://github.com/nezjusz/MusicBot/releases/download/${{ github.event.inputs.version_number }}/JMusicBot-${{ github.event.inputs.version_number }}.jar)
