@@ -49,21 +49,14 @@
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
             <version>6.5.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <!-- Pin slf4j to 1.7.x so logback-classic 1.2.13 (which provides the
-             StaticLoggerBinder for slf4j 1.7) is used as the binding, instead
-             of JDA's slf4j 2.0.x which leaves SLF4J with only the NOP logger
-             and breaks the logback Logger cast in JMusicBot. -->
+        <!-- SLF4J 2.0 API: required by JDA 6 and by JDave/DAVE (Logger.atLevel).
+             Paired with logback-classic 1.5.x below, which is the slf4j-2.0
+             compatible binding and is still a real ch.qos.logback.classic.Logger. -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
+            <version>2.0.18</version>
         </dependency>
         <!-- jda-utilities is archived/unmaintained and not JDA 6 compatible.
              JDA-Chewtils is a drop-in fork keeping the same com.jagrosh.jdautilities package. -->
@@ -129,7 +122,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.13</version>
+            <version>1.5.38</version>
         </dependency>
         <dependency>
             <groupId>com.typesafe</groupId>
@@ -181,6 +174,7 @@
                             <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                 <resource>reference.conf</resource>
                             </transformer>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                 <manifestEntries>
                                     <Main-Class>com.jagrosh.jmusicbot.JMusicBot</Main-Class>
@@ -193,6 +187,14 @@
                                 </manifestEntries>
                             </transformer>
                         </transformers>
+                        <filters>
+                            <filter>
+                                <artifact>org.slf4j:slf4j-api</artifact>
+                                <excludes>
+                                    <exclude>META-INF/services/org.slf4j.spi.SLF4JServiceProvider</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
                     </configuration>
                 </execution>
             </executions>
