@@ -14,8 +14,8 @@
         </repository>
         <repository>
             <id>central</id>
-            <name>bintray</name>
-            <url>https://jcenter.bintray.com</url>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2</url>
         </repository>
         <repository>
             <id>jitpack.io</id>
@@ -35,20 +35,57 @@
             <name>Lavalink Repository</name>
             <url>https://maven.lavalink.dev/releases</url>
         </repository>
+        <repository>
+            <id>chew</id>
+            <name>m2-chew</name>
+            <url>https://m2.chew.pro/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <!-- Discord Dependencies -->
+        <!-- JDA 6.3.0+ is required for DAVE (Discord's E2EE voice protocol). -->
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.4.1_353</version>
+            <version>6.5.0</version>
+        </dependency>
+        <!-- jda-utilities is archived/unmaintained and not JDA 6 compatible.
+             JDA-Chewtils is a drop-in fork keeping the same com.jagrosh.jdautilities package. -->
+        <dependency>
+            <groupId>pw.chew</groupId>
+            <artifactId>jda-chewtils</artifactId>
+            <version>2.2</version>
+            <type>pom</type>
+        </dependency>
+
+        <!-- DAVE (Discord Audio & Video End-to-End Encryption) implementation.
+             JDAVE wraps Discord's official libdave native library via Java's FFM API.
+             The -native- artifacts bundle the libdave binary for each platform. -->
+        <dependency>
+            <groupId>club.minnced</groupId>
+            <artifactId>jdave-api</artifactId>
+            <version>0.1.8</version>
         </dependency>
         <dependency>
-            <groupId>com.jagrosh</groupId>
-            <artifactId>jda-utilities</artifactId>
-            <version>3.0.5</version>
-            <type>pom</type>
+            <groupId>club.minnced</groupId>
+            <artifactId>jdave-native-win-x86-64</artifactId>
+            <version>0.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>club.minnced</groupId>
+            <artifactId>jdave-native-linux-x86-64</artifactId>
+            <version>0.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>club.minnced</groupId>
+            <artifactId>jdave-native-linux-aarch64</artifactId>
+            <version>0.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>club.minnced</groupId>
+            <artifactId>jdave-native-darwin</artifactId>
+            <version>0.1.8</version>
         </dependency>
 
         <!-- Music Dependencies -->
@@ -60,7 +97,7 @@
         <dependency>
             <groupId>dev.lavalink.youtube</groupId>
             <artifactId>common</artifactId>
-            <version>1.5.2</version>
+            <version>1.18.2</version>
         </dependency>
 	<dependency>
 	    <groupId>com.github.jagrosh</groupId>
@@ -110,7 +147,7 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
-            <version>1.5</version>
+            <version>3.5.3</version>
             <executions>
                 <execution>
                     <phase>package</phase>
@@ -137,6 +174,7 @@
                                     <Implementation-Title>${project.artifactId}</Implementation-Title>
                                     <Implementation-Version>${project.version}</Implementation-Version>
                                     <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
+                                    <Enable-Native-Access>ALL-UNNAMED</Enable-Native-Access>
                                 </manifestEntries>
                             </transformer>
                         </transformers>
@@ -149,7 +187,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
     </properties>
 </project>

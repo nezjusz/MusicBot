@@ -30,6 +30,7 @@ import com.sedmelluq.discord.lavaplayer.source.soundcloud.SoundCloudAudioSourceM
 import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.vimeo.VimeoAudioSourceManager;
 import dev.lavalink.youtube.YoutubeAudioSourceManager;
+import dev.lavalink.youtube.clients.Web;
 import net.dv8tion.jda.api.entities.Guild;
 
 /**
@@ -51,6 +52,14 @@ public class PlayerManager extends DefaultAudioPlayerManager
 
         YoutubeAudioSourceManager yt = new YoutubeAudioSourceManager(true);
         yt.setPlaylistPageCount(bot.getConfig().getMaxYTPlaylistPages());
+        // Apply the YouTube Proof-of-Origin token (poToken) + visitor data if configured.
+        // This helps bypass YouTube's "Sign in to confirm you're not a bot" block.
+        // Obtained from a trusted generator (iv-org/youtube-trusted-session-generator), NOT from
+        // unofficial mods or random Chrome/chromedriver scripts.
+        String poToken = bot.getConfig().getPoToken();
+        String visitorData = bot.getConfig().getVisitorData();
+        if(poToken != null && !poToken.isEmpty() && visitorData != null && !visitorData.isEmpty())
+            Web.setPoTokenAndVisitorData(poToken, visitorData);
         registerSourceManager(yt);
 
         registerSourceManager(SoundCloudAudioSourceManager.createDefault());

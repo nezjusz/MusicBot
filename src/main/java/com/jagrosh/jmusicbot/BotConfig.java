@@ -49,6 +49,7 @@ public class BotConfig
     private OnlineStatus status;
     private Activity game;
     private Config aliases, transforms;
+    private String potoken, visitorData;
 
     private boolean valid = false;
     
@@ -94,6 +95,8 @@ public class BotConfig
             maxSeconds = config.getLong("maxtime");
             maxYTPlaylistPages = config.getInt("maxytplaylistpages");
             aloneTimeUntilStop = config.getLong("alonetimeuntilstop");
+            potoken = config.getString("potoken");
+            visitorData = config.getString("visitorData");
             playlistsFolder = config.getString("playlistsfolder");
             aliases = config.getConfig("aliases");
             transforms = config.getConfig("transforms");
@@ -346,6 +349,16 @@ public class BotConfig
     public int getMaxYTPlaylistPages()
     {
         return maxYTPlaylistPages;
+    }
+
+    public String getPoToken()
+    {
+        return potoken;
+    }
+
+    public String getVisitorData()
+    {
+        return visitorData;
     }
     
     public String getMaxTime()
